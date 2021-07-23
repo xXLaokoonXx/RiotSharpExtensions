@@ -29,8 +29,8 @@ jobs:
       working-directory: ./RiotSharpExtensions
       run: dotnet test --no-build --verbosity normal
     - name: Build Nuget
-      working-directory: ./RiotSharpExtensions
-      run: dotnet pack -p:PackageVersion=${{ steps.get_version.outputs.VERSION }} -p:Configuration=Release
+      working-directory: ./nuget
+      run: nuget pack -version ${{ steps.get_version.outputs.VERSION }}
     - name: Publish Nuget
-      working-directory: ./RiotSharpExtensions/RiotSharpExtensions/bin/Release
-      run: dotnet nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{secrets.NUGET_API_KEY}} -s nuget.org
+      working-directory: ./nuget
+      run: nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{secrets.NUGET_API_KEY}} -s nuget.org
