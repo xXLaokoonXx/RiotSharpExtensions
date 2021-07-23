@@ -32,5 +32,5 @@ jobs:
       working-directory: ./RiotSharpExtensions
       run: dotnet pack -p:PackageVersion=${{ steps.get_version.outputs.VERSION }} -p:Configuration=Release
     - name: Publish Nuget
-      working-directory: ./RiotSharpExtensions
-      run: dotnet nuget push RiotSharpExtensions/bin/Release/RiotSharpExceptions.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{secrets.NUGET_API_KEY}} -s nuget.org
+      working-directory: ./RiotSharpExtensions/RiotSharpExtensions/bin/Release
+      run: dotnet nuget push RiotSharpExceptions.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{secrets.NUGET_API_KEY}} -s nuget.org
