@@ -8,7 +8,7 @@ using RiotSharp.Endpoints.MatchEndpoint.Enums;
 
 namespace RiotSharpExtensions.EndpointServices.Matches
 {
-    public class PlayerSpacificTimelineServices
+    public class PlayerSpecificTimelineServices
     {
         /// <summary>
         /// Get the champion kills performed between two timepoints by <paramref name="participantId"/>
