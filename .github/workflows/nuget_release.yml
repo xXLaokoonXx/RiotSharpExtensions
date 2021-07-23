@@ -33,4 +33,4 @@ jobs:
       run: nuget pack -version ${{ steps.get_version.outputs.VERSION }}
     - name: Publish Nuget
       working-directory: ./nuget
-      run: nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{secrets.NUGET_API_KEY}} -s nuget.org
+      run: nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -ApiKey ${{secrets.NUGET_API_KEY}} -src nuget.org
