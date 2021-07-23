@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ZNHvuuO45BF7GQySWwBpp7xPyHCZP7ZH5o0LYUCSEbb1/RocdcX/nl0w+AIB3iUNYc0da76VnjHs9aY2xwncog==",
+  "dgSpecHash": "QhktvDaWsuisYQkb8eHulizABoWMoi37mbBIG+OMDMrZmycTv+3k8WbPb834l1v2C5n0Q7B4m+nRd3XKlwcTWQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\tomec\\source\\repos\\RiotSharpExtensions\\RiotSharpExtensions\\RiotSharpExtensions\\RiotSharpExtensions.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\tomec\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
