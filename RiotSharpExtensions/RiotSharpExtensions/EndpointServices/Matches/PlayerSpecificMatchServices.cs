@@ -46,5 +46,13 @@ namespace RiotSharpExtensions.EndpointServices.Matches
         public static IEnumerable<string> GetAllieSummonerNames(this Match match, string summonerPuuid)
             => match.GetAllies(summonerPuuid).Select(ally => ally.SummonerName);
 
+        /// <summary>
+        /// Function to get the participant id of a certain summoner.
+        /// </summary>
+        /// <param name="match">Match</param>
+        /// <param name="summonerPuuid">Summoner to get the participant id for</param>
+        /// <returns></returns>
+        public static int GetParticipantId(this Match match, string summonerPuuid)
+        => match.Info.Participants.First(p => p.Puuid == summonerPuuid).ParticipantId;
     }
 }
