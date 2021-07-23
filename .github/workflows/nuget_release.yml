@@ -2,7 +2,8 @@ name: .NET
 
 on:
   create:
-    tag: *.*.*
+    tag: 
+      - '*.*.*'
 
 jobs:
   build:
