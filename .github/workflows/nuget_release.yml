@@ -36,4 +36,4 @@ jobs:
       run: nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -ApiKey ${{secrets.NUGET_API_KEY}} -src nuget.org
     - name: Publish Nuget on github
       working-directory: ./nuget
-      run: nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -ApiKey ${{secrets.MY_GITHUB_KEY}} -src nuget.pkg.github.com/xxlaokoonxx/index.json
+      run: nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -ApiKey ${{secrets.MY_GITHUB_KEY}} -src nuget.pkg.github.com
