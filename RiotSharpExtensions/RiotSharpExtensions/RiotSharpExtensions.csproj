@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>xXLAOKOONXx</Authors>
+    <Description>Experimental library</Description>
   </PropertyGroup>
 
   <ItemGroup>
