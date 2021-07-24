@@ -54,5 +54,14 @@ namespace RiotSharpExtensions.EndpointServices.Matches
         /// <returns></returns>
         public static int GetParticipantId(this Match match, string summonerPuuid)
         => match.Info.Participants.First(p => p.Puuid == summonerPuuid).ParticipantId;
+
+        /// <summary>
+        /// Function to get the champion of a a specific summoner in a specific game
+        /// </summary>
+        /// <param name="match">Match</param>
+        /// <param name="summonerPuuid">Summoner to get the participant id for</param>
+        /// <returns>Champion id</returns>
+        public static int GetChampion(this Match match, string summonerPuuid)
+            => match.Info.Participants.First(p => p.Puuid == summonerPuuid).ChampionId;
     }
 }
