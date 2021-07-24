@@ -1,5 +1,6 @@
 ﻿using RiotSharp.Endpoints.MatchEndpoint;
 using RiotSharp.Endpoints.SummonerEndpoint;
+using RiotSharpExtensions.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,70 @@ namespace RiotSharpExtensions.EndpointServices.Matches
         /// <param name="match">Match</param>
         /// <param name="summonerPuuid">Summoner to get the participant id for</param>
         /// <returns>Champion id</returns>
-        public static int GetChampion(this Match match, string summonerPuuid)
-            => match.Info.Participants.First(p => p.Puuid == summonerPuuid).ChampionId;
+        public static int GetChampion(this Match match, string summonerPuuid, bool throwException = true)
+        {
+            try
+            {
+                return match.GetParticipant(summonerPuuid, true).ChampionId;
+            }
+            catch (RiotSharpExtensionsPlayerNotInGame ex) 
+            {
+                if (throwException)
+                {
+                    throw ex;
+                }
+                return -1;
+            }
+        }
+
+        public static int GetTeamSide(this Match match, string summonerPuuid, bool throwException = true)
+        {
+            return match.GetParticipant(summonerPuuid, throwException).TeamId;
+        }
+
+        public static string GetSummonerName(this Match match, string summonerPuuid, bool throwException = true)
+        {
+            return match.GetParticipant(summonerPuuid, throwException)?.SummonerName;
+        }
+
+        /// <summary>
+        /// Function to exctract the <see cref="Participant"/> of summoner with <paramref name="summonerPuuid"/> from <paramref name="match"/> <br></br>
+        /// Triggers <see cref="RiotSharpExtensionsPlayerNotInGame"/> if <paramref name="throwException"/> is true and summoner is not part of the game
+        /// </summary>
+        /// <param name="match">Match to get the <see cref="Participant"/> from</param>
+        /// <param name="summonerPuuid">Puuid of the summoner</param>
+        /// <param name="throwException">Flag to throw exception on not finding the participant (true) or return a default value (false)</param>
+        /// <returns>Participant or null</returns>
+        /// <exception cref="RiotSharpExtensionsPlayerNotInGame">Triggers if <paramref name="throwException"/> is true and summoner is not part of the game</exception>
+        public static Participant GetParticipant(this Match match, string summonerPuuid, bool throwException = false)
+        {
+            if (match.ContainsParticipant(summonerPuuid, throwException))
+            {
+                return match.Info.Participants.First(p => p.Puuid == summonerPuuid);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Function to determine whether the summoner with <paramref name="summonerPuuid"/> took part in <paramref name="match"/>
+        /// Triggers <see cref="RiotSharpExtensionsPlayerNotInGame"/> if <paramref name="throwException"/> is true and summoner is not part of the game
+        /// </summary>
+        /// <param name="match">Match to get the <see cref="Participant"/> from</param>
+        /// <param name="summonerPuuid">Puuid of the summoner</param>
+        /// <param name="throwException">Flag to throw exception on not finding the participant (true) or return a default value (false)</param>
+        /// <returns></returns>
+        /// <exception cref="RiotSharpExtensionsPlayerNotInGame"></exception>
+        public static bool ContainsParticipant(this Match match, string summonerPuuid, bool throwException = false)
+        {
+            if(match.Info.Participants.Count(p => p.Puuid == summonerPuuid) > 0)
+            {
+                return true;
+            }
+            if (throwException)
+            {
+                throw new RiotSharpExtensionsPlayerNotInGame(summonerPuuid);
+            }
+            return false;
+        }
     }
 }
