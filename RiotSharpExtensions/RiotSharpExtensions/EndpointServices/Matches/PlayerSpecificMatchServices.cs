@@ -107,6 +107,79 @@ namespace RiotSharpExtensions.EndpointServices.Matches
         }
 
         /// <summary>
+        /// Function to exctract the <see cref="Participant"/> of the player on <paramref name="fullPosition"/> from <paramref name="match"/> <br></br>
+        /// Triggers <see cref="RiotSharpExtensionException"/> if <paramref name="throwException"/> is true and participant can not be identified.
+        /// </summary>
+        /// <param name="match">Match to get the <see cref="Participant"/> from</param>
+        /// <param name="fullPosition">Full position of the player</param>
+        /// <param name="throwException">Flag to throw exception on not finding the participant (true) or return a default value (false)</param>
+        /// <returns>Participant or null</returns>
+        /// <exception cref="RiotSharpExtensionException">Triggers if <paramref name="throwException"/> is true and summoner is not part of the game</exception>
+        public static Participant GetParticipant(this Match match, Enums.FullPosition fullPosition, bool throwException = false)
+        {
+            int teamId;
+            string teamPosition;
+            switch (fullPosition)
+            {
+                case Enums.FullPosition.RedTop:
+                    teamId = 200;
+                    teamPosition = "Top";
+                    break;
+                case Enums.FullPosition.RedJng:
+                    teamId = 200;
+                    teamPosition = "Jungle";
+                    break;
+                case Enums.FullPosition.RedMid:
+                    teamId = 200;
+                    teamPosition = "Middle";
+                    break;
+                case Enums.FullPosition.RedBot:
+                    teamId = 200;
+                    teamPosition = "Bottom";
+                    break;
+                case Enums.FullPosition.RedSup:
+                    teamId = 200;
+                    teamPosition = "Utility";
+                    break;
+                case Enums.FullPosition.BlueTop:
+                    teamId = 100;
+                    teamPosition = "Top";
+                    break;
+                case Enums.FullPosition.BlueJng:
+                    teamId = 100;
+                    teamPosition = "Jungle";
+                    break;
+                case Enums.FullPosition.BlueMid:
+                    teamId = 100;
+                    teamPosition = "Middle";
+                    break;
+                case Enums.FullPosition.BlueBot:
+                    teamId = 100;
+                    teamPosition = "Bottom";
+                    break;
+                case Enums.FullPosition.BlueSup:
+                    teamId = 100;
+                    teamPosition = "Utility";
+                    break;
+                default:
+                    return null;
+            }
+            try
+            {
+                return match.Info.Participants.First(p => p.TeamId == teamId && p.TeamPosition == teamPosition);
+            }
+            catch (InvalidOperationException)
+            {
+                // No participant matching the request
+                if (throwException)
+                {
+                    throw new RiotSharpExtensionException();
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Function to determine whether the summoner with <paramref name="summonerPuuid"/> took part in <paramref name="match"/>
         /// Triggers <see cref="RiotSharpExtensionsPlayerNotInGame"/> if <paramref name="throwException"/> is true and summoner is not part of the game
         /// </summary>
