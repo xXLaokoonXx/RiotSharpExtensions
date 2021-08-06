@@ -4,16 +4,23 @@
         <id>RiotSharpExtensions</id>
         <!--Nuget versioning is managed via pipeline-->
         <version>0.0.1</version>
-        <description>Library</description>
+        <description>.NET 5.0 Library</description>
         <authors>xXLaokoonXx</authors>
 
         <!-- Optional elements -->
+        <projectUrl>https://github.com/xXLaokoonXx/RiotSharpExtensions</projectUrl>
+        <readme>docs\readme.md</readme>
         <repository type="git" url="https://github.com/xXLaokoonXx/RiotSharpExtensions.git" branch="main"/>
         <!-- ... -->
+        <dependencies>
+            <dependency id="Newtonsoft.Json" version="10.0.2" />
+            <dependency id="OpenCover" version="4.6.519" />
+        </dependencies>
     </metadata>
     <!-- Optional 'files' node -->
     <files>
-     <file src="../assemblys/RiotSharp/*.dll" target="lib/" />
-     <file src="../RiotSharpExtensions/RiotSharpExtensions/bin/Debug/net5.0/RiotSharpExtensions.dll" target="lib/" />
+        <file src="../readme.md" target="docs/" />
+        <file src="../assemblys/RiotSharp/*.dll" target="lib/net5.0/" />
+        <file src="../RiotSharpExtensions/RiotSharpExtensions/bin/Debug/net5.0/RiotSharpExtensions.dll" target="lib/net5.0/" />
     </files>
 </package>
