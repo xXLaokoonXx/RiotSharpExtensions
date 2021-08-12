@@ -33,7 +33,7 @@ jobs:
       run: nuget pack -version ${{ steps.get_version.outputs.VERSION }}
     - name: Publish Nuget on nuget.org
       working-directory: ./nuget
-      run: nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -ApiKey ${{secrets.NUGET_API_KEY}} -src nuget.org
+      run: dotnet nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -s https://nuget.org -k ${{secrets.NUGET_API_KEY}}
     - name: Publish Nuget on github
       working-directory: ./nuget
       run: dotnet nuget push RiotSharpExtensions.${{ steps.get_version.outputs.VERSION }}.nupkg -s https://nuget.pkg.github.com/xxlaokoonxx/index.json -k ${{secrets.MY_GITHUB_KEY}}
